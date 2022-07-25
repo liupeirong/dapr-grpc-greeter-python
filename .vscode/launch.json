@@ -1,0 +1,46 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+
+        {
+            "name": "Server Dapr Python",
+            "type": "python",
+            "request": "launch",
+            "program": "${file}",
+            "console": "integratedTerminal",
+            "justMyCode": true,
+            "preLaunchTask": "daprd-debug-python-server",
+            "postDebugTask": "daprd-down-python-server",
+        },
+        {
+            "name": "Client Dapr Python",
+            "type": "python",
+            "request": "launch",
+            "program": "${file}",
+            "console": "integratedTerminal",
+            "justMyCode": true,
+            "preLaunchTask": "daprd-debug-python-client",
+            "postDebugTask": "daprd-down-python-client"
+        },
+        {
+            "name": "Native Server Python",
+            "type": "python",
+            "request": "launch",
+            "program": "${file}",
+            "console": "integratedTerminal",
+            "justMyCode": true
+        },
+        {
+            "name": "Native Client Python",
+            "type": "python",
+            "request": "launch",
+            "program": "${file}",
+            "args": ["1"],
+            "console": "integratedTerminal",
+            "justMyCode": true
+        }
+    ]
+}
