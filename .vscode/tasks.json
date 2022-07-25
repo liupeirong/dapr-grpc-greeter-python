@@ -2,43 +2,23 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "daprd-debug-python-server",
-            "type": "shell",
-            "isBackground": true,
-            "command": "dapr run --app-id greeter --app-protocol grpc --app-port 50051 --app-ssl",
-            // This task is run before some debug tasks.
-            // Problem is, it's a watch script, and since it never exits, VSCode
-            // complains. All this is needed so VSCode just lets it run.
-            "problemMatcher": [
-                {
-                    "pattern": [
-                        {
-                            "regexp": ".",
-                            "file": 1,
-                            "location": 2,
-                            "message": 3
-                        }
-                    ],
-                    "background": {
-                        "activeOnStart": true,
-                        "beginsPattern": ".",
-                        "endsPattern": ".",
-                    }
-                }
-            ]
-        },
-        {
-            "label": "daprd-debug-python-client",
+            "label": "daprd-debug-server",
             "type": "daprd",
-            "appId": "greeter-client"
+            "appId": "greeter",
         },
         {
-            "label": "daprd-down-python-server",
-            "type": "shell",
-            "command": "dapr stop --app-id greeter"
+            "label": "daprd-down-server",
+            "type": "daprd-down",
+            "appId": "greeter"
         },
         {
-            "label": "daprd-down-python-server",
+            "label": "daprd-debug-client",
+            "type": "daprd",
+            "appId": "greeter-client",
+            "args": ["-dapr-grpc-port", "60041"]
+        },
+        {
+            "label": "daprd-down-client",
             "type": "daprd-down",
             "appId": "greeter-client"
         }
