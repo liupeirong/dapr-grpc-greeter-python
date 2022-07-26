@@ -19,13 +19,14 @@ class Subscriber(appcallback_service_v1.AppCallbackServicer):
 
     def OnTopicEvent(self, request, context):
         if request.topic == 'greeter':
+            logging.info("received message!")
             derequest = helloworld_pb2.HelloRequest()
             json_format.Parse(request.data, derequest)
             g = Greeter()
             message = g.SayHello(derequest, None)
-            print(message)
+            logging.info(f"processed {message}")
         
-        return appcallback_v1.TopicEventResponse('success')
+        return appcallback_v1.TopicEventResponse()
 
 def main():
     server=grpc.server(futures.ThreadPoolExecutor(max_workers=2))

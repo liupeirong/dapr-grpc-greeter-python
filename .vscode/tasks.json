@@ -5,6 +5,9 @@
             "label": "daprd-debug-server",
             "type": "daprd",
             "appId": "greeter",
+            "appProtocol": "grpc",
+            "appSsl": true,
+            "appPort": 50051
         },
         {
             "label": "daprd-down-server",

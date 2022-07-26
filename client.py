@@ -1,5 +1,6 @@
 import logging
 import sys
+import os
 
 import grpc
 import helloworld_pb2
@@ -9,16 +10,17 @@ from dapr.clients import DaprClient
 from google.protobuf import json_format
 
 def main():
-    request = helloworld_pb2.HelloRequest(name='you')
+    request = helloworld_pb2.HelloRequest(name='world')
     if len(sys.argv) > 1:
         print('Invoke grpc service')
-        native_grpc_host = "contoso.local" 
+        native_grpc_host = "contoso.local" #to match the ssl certificate CN
         native_grpc_port = "50051"
-        # daprd launch task set the env var DAPR_GRPC_PORT, however,
+        # daprd launch task sets the env var DAPR_GRPC_PORT, however,
         # Python launcher doesn't seem to pass env vars to the main process.
-        # So pass it in as a command line argument. 
-        # port = os.getenv('DAPR_GRPC_PORT', native_grpc_port)
-        port = sys.argv[2] if len(sys.argv) > 2 else native_grpc_port
+        # So pass it in as a command line argument for debugging. 
+        port = os.getenv('DAPR_GRPC_PORT', 0)
+        if port == 0:
+            port = sys.argv[2] if len(sys.argv) > 2 else native_grpc_port
         if (port != native_grpc_port): # running in dapr
             grpc_channel = grpc.insecure_channel(f"localhost:{port}")
             print(f'Connecting to localhost:{port}')
