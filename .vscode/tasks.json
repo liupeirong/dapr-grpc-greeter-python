@@ -1,0 +1,29 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "daprd-debug-server",
+            "type": "daprd",
+            "appId": "greeter",
+            "appProtocol": "grpc",
+            "appSsl": true,
+            "appPort": 50051
+        },
+        {
+            "label": "daprd-down-server",
+            "type": "daprd-down",
+            "appId": "greeter"
+        },
+        {
+            "label": "daprd-debug-client",
+            "type": "daprd",
+            "appId": "greeter-client",
+            "args": ["-dapr-grpc-port", "60041"]
+        },
+        {
+            "label": "daprd-down-client",
+            "type": "daprd-down",
+            "appId": "greeter-client"
+        }
+    ]
+}

@@ -127,3 +127,10 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+certs/
+grpc_env/
+
+# grpc generated file
+*_pb2.py
+*_pb2_grpc.py
