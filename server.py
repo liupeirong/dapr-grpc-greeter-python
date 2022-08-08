@@ -15,7 +15,8 @@ class Greeter(helloworld_pb2_grpc.GreeterServicer):
 
 class Subscriber(appcallback_service_v1.AppCallbackServicer):
     def ListTopicSubscriptions(self, request, context):
-        return appcallback_v1.ListTopicSubscriptionsResponse()
+        subscriptions = [appcallback_v1.TopicSubscription(pubsub_name='mqtt-pubsub', topic='greeter')]
+        return appcallback_v1.ListTopicSubscriptionsResponse(subscriptions=subscriptions)
 
     def OnTopicEvent(self, request, context):
         if request.topic == 'greeter':
@@ -33,8 +34,8 @@ def main():
     helloworld_pb2_grpc.add_GreeterServicer_to_server(Greeter(), server)
     appcallback_service_v1.add_AppCallbackServicer_to_server(Subscriber(), server)
 
-    cert = open('certs\server.crt', 'rb').read()
-    key = open('certs\server.key', 'rb').read()
+    cert = open(r'certs\server.crt', 'rb').read()
+    key = open(r'certs\server.key', 'rb').read()
     server_credentials = grpc.ssl_server_credentials(((key, cert,),))
     server.add_secure_port('[::]:50051', server_credentials)
     server.start()
